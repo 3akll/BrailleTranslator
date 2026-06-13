@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BrailleTranslator</string>
+    <string name="title_first_screen">Braille Translator!</string>
+    <string name="input_text">Text</string>
+    <string name="translate_button">Translate</string>
+    <string name="result">Result</string>
+</resources>
