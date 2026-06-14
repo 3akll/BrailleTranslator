@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String textToTranslate = inText.getText().toString(); // textToTranslate contain the input we want to translate
-                String result = BrailleTranslator.translate(textToTranslate); // Send textToTranslate to translate() in BrailleTranslator.java to translate it
+                StringBuilder result = BrailleTranslator.translate(textToTranslate); // Send textToTranslate to translate() in BrailleTranslator.java to translate it
                 outText.setText(result);
             }
         });
