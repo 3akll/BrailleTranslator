@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);*/
 
                 String textToTranslate = inText.getText().toString(); // textToTranslate contain the input we want to translate
-                StringBuilder result = BrailleTranslator.translate(textToTranslate); // Send textToTranslate to translate() in BrailleTranslator.java to translate it
+                String result = BrailleTranslator.translate(textToTranslate); // Send textToTranslate to translate() in BrailleTranslator.java to translate it
                 outText.setText(result);
             }
         });
