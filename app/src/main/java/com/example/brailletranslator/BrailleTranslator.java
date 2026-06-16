@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 /* This logic can be simplified by doing only 1 HashMap, and mapping characters, numbers and
-punctuations as they are strings ==> we will have one statement in the loop*/
+punctuations as they are strings ==> we will have one statement in the loop */
 
 /* For training purposes and for better clarity and organization I considered 3 HashMaps */
 
@@ -109,7 +109,7 @@ public class BrailleTranslator {
         return numberBrailleMap;
     }
 
-    // Creates a map and then stores it in numberBraille HashMap
+    // Creates a map and then stores it in punctuationBraille HashMap
     @NonNull
     private static HashMap<Character, String> createPunctuationBrailleMap() {
         HashMap<Character, String> punctuationBrailleMap = new HashMap<>();
