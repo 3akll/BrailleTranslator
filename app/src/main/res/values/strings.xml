@@ -4,4 +4,6 @@
     <string name="input_hint">Type a message</string>
     <string name="translate_button">Translate</string>
     <string name="result">Result</string>
+    <string name="clear_button">Clear</string>
+    <string name="copy_button">Copy</string>
 </resources>

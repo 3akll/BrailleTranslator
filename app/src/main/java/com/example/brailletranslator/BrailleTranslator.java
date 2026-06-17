@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 /* This logic can be simplified by doing only 1 HashMap, and mapping characters, numbers and
-punctuations as they are strings ==> we will have one statement in the loop */
+punctuations as they are characters ==> we will have only one statement in the loop */
 
 /* For training purposes and for better clarity and organization I considered 3 HashMaps */
 
@@ -13,6 +13,7 @@ public class BrailleTranslator {
     @NonNull
     public static String translate(String input) {
 
+        char currentChar;
         StringBuilder output = new StringBuilder();
 
         // Convert input to lowercase to simplify mapping the letters
@@ -31,17 +32,22 @@ public class BrailleTranslator {
 
         // Loop through lowerCaseInput to translate it
         for (int i = 0; i < lowerCaseInput.length(); i++) {
-            // Check if the char is a letter or a space
-            if (Character.isLetter(lowerCaseInput.charAt(i)) || lowerCaseInput.charAt(i) == ' ') {
-                output.append(letterBraille.get(lowerCaseInput.charAt(i)));
+
+            currentChar = lowerCaseInput.charAt(i);
+
+            // Check if the char is a letter and is contained in the letterBraille HashMap or a space
+            if (((Character.isLetter(currentChar)) && (letterBraille.containsKey(currentChar))) || (currentChar == ' ')) {
+                output.append(letterBraille.get(currentChar));
             }
-            else if (Character.isDigit(lowerCaseInput.charAt(i))) {
-                output.append(numberBraille.get(Character.digit(lowerCaseInput.charAt(i),10))); // Radix = 10 ==> Base 10 numbers
+            // Check if the char is a letter and is contained in the numberBrailleBraille HashMap
+            // The Char must be converted to the numeric value before checking if it is contained in the HashMap
+            else if ((Character.isDigit(currentChar)) && (numberBraille.containsKey(Character.digit(currentChar, 10)))) {
+                output.append(numberBraille.get(Character.digit(currentChar,10))); // Radix = 10 ==> Base 10 numbers
             }
             else {
                 // Check if the char is a punctuation and get his value
-                if (punctuationBraille.containsKey(lowerCaseInput.charAt(i))) {
-                    output.append(punctuationBraille.get(lowerCaseInput.charAt(i)));
+                if (punctuationBraille.containsKey(currentChar)) {
+                    output.append(punctuationBraille.get(currentChar));
                 }
                 // The char isn't recognized
                 else {
