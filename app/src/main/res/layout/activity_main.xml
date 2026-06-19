@@ -68,7 +68,6 @@
         android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/clear_button"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.917"
@@ -76,6 +75,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.193"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+    <!--android:visibility="gone"-->
 
     <ImageButton
         android:id="@+id/copyResultButton"
@@ -92,6 +92,40 @@
         app:layout_constraintVertical_bias="0.313"
         app:srcCompat="?attr/actionModeCopyDrawable"
         app:tint="?attr/colorOnSurface" />
-    <!-->Check if colorOnSurface works well<-->
+
+    <LinearLayout
+        android:layout_width="277dp"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13">
+
+        <TextView
+            android:id="@+id/leftModeLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mode_text" />
+
+        <ImageButton
+            android:id="@+id/switchModeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/switch_button"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+        <TextView
+            android:id="@+id/rightModeLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mode_braille" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

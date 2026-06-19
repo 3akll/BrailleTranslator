@@ -6,4 +6,7 @@
     <string name="result">Result</string>
     <string name="clear_button">Clear</string>
     <string name="copy_button">Copy</string>
+    <string name="switch_button">Switch</string>
+    <string name="mode_text">Text</string>
+    <string name="mode_braille">Braille</string>
 </resources>

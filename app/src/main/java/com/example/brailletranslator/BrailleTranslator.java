@@ -3,31 +3,36 @@ package com.example.brailletranslator;
 import androidx.annotation.NonNull;
 import java.util.HashMap;
 
-/* This logic can be simplified by doing only 1 HashMap, and mapping characters, numbers and
-punctuations as they are characters ==> we will have only one statement in the loop */
-
-/* For training purposes and for better clarity and organization I considered 3 HashMaps */
+/*
+ * Provides translation methods between regular text and Braille symbols.
+ *
+ * Separate HashMaps are used for letters, digits, and punctuation to keep the
+ * mappings clear while learning. A single character map could also work because
+ * the input is processed one character at a time.
+ */
 
 public class BrailleTranslator {
     // Public method ==> will be called by MainActivity class
     @NonNull
-    public static String translate(String input) {
+    public static String translateTextToBraille(String input) {
 
         char currentChar;
         StringBuilder output = new StringBuilder();
 
-        // Convert input to lowercase to simplify mapping the letters
+        // Convert input of type text only to lowercase to simplify mapping the letters
         String lowerCaseInput = input.toLowerCase();
 
-        /* HashMap to store letter/brailleUnicodeCharacters
-        Method createLetterBrailleMap() is used to make translate() method shorter and focused
-        only on translating */
+        /*
+         * HashMap to store letter/brailleSymbol
+         * Method createLetterBrailleMap() is used to make translate() method shorter and focused
+         * only on translating
+         */
         HashMap<Character, String> letterBraille = createLetterBrailleMap();
 
-        // HashMap to store number/brailleUnicodeCharacters
+        // HashMap to store number/brailleSymbol
         HashMap<Integer, String> numberBraille = createNumberBrailleMap();
 
-        // HashMap to store punctuation/brailleUnicodeCharacters
+        // HashMap to store punctuation/brailleSymbol
         HashMap<Character, String> punctuationBraille = createPunctuationBrailleMap();
 
         // Loop through lowerCaseInput to translate it
@@ -35,37 +40,76 @@ public class BrailleTranslator {
 
             currentChar = lowerCaseInput.charAt(i);
 
-            // Check if the char is a letter and is contained in the letterBraille HashMap or a space
+            /* Check if currentChar:
+             *      1- is a letter
+             *      2- and is contained in the letterBraille HashMap
+             *      3- or is a space
+             */
             if (((Character.isLetter(currentChar)) && (letterBraille.containsKey(currentChar))) || (currentChar == ' ')) {
                 output.append(letterBraille.get(currentChar));
             }
-            // Check if the char is a letter and is contained in the numberBrailleBraille HashMap
-            // The Char must be converted to the numeric value before checking if it is contained in the HashMap
+            /* Check if currentChar:
+             *      1- is a digit
+             *      2- and is contained in the numberBraille HashMap
+             *
+             *      Note: currentChar must be converted to the numeric value before checking if it
+             *            is contained in the HashMap
+             */
             else if ((Character.isDigit(currentChar)) && (numberBraille.containsKey(Character.digit(currentChar, 10)))) {
                 output.append(numberBraille.get(Character.digit(currentChar,10))); // Radix = 10 ==> Base 10 numbers
             }
             else {
-                // Check if the char is a punctuation and get his value
+                // Check if currentChar is a punctuation
                 if (punctuationBraille.containsKey(currentChar)) {
                     output.append(punctuationBraille.get(currentChar));
                 }
-                // The char isn't recognized
+                // currentChar isn't recognized / not mapped ==> print "?" character
                 else {
                     output.append("?");
                 }
             }
         }
 
-        // Return a string representing the data contained by StringBuilder Object "output"
+        // Convert the StringBuilder content into a String and return it
         return output.toString();
     }
 
-    // Private method ==> belongs only to BrailleTranslator class
-    // No need to be shared with other classes
-    // Creates a map and then stores it in letterBraille HashMap
+    public static String translateBrailleToText(String input) {
+
+        String currentBraille;
+        StringBuilder output = new StringBuilder();
+
+        // HashMap to store brailleSymbol/letter
+        HashMap<String, Character> brailleLetter = createBrailleLetterMap();
+
+        for (int i = 0; i < input.length(); i++) {
+
+            // Convert the char at position i to String, cause the key of brailleLetter HashMap is a String
+            currentBraille = String.valueOf(input.charAt(i));
+
+            // Check if currentBraille is contained in the brailleLetter HashMap
+            if (brailleLetter.containsKey(currentBraille)) {
+                output.append(brailleLetter.get(currentBraille));
+            }
+            else {
+                // currentBraille isn't recognized / not mapped ==> print "?" character
+                output.append("?");
+            }
+        }
+
+        // Convert the StringBuilder content into a String and return it
+        return output.toString();
+    }
+
+    /* Private method ==> belongs only to BrailleTranslator class
+     * No need to be shared with other classes
+     * Creates, fills, and returns the letterBrailleMap HashMap
+     */
     @NonNull
     private static HashMap<Character, String> createLetterBrailleMap() {
+
         HashMap<Character, String> letterBrailleMap = new HashMap<>();
+
         letterBrailleMap.put(' ', "⠀"); // Unaffected by toLowerCase() method
         letterBrailleMap.put('a', "⠁");
         letterBrailleMap.put('b', "⠃");
@@ -97,10 +141,31 @@ public class BrailleTranslator {
         return letterBrailleMap;
     }
 
-    // Creates a map and then stores it in numberBraille HashMap
+    @NonNull
+    private static HashMap<Character, String> createPunctuationBrailleMap() {
+
+        HashMap<Character, String> punctuationBrailleMap = new HashMap<>();
+
+        punctuationBrailleMap.put(',', "⠂");
+        punctuationBrailleMap.put(';', "⠆");
+        punctuationBrailleMap.put(':', "⠒");
+        punctuationBrailleMap.put('.', "⠲");
+        punctuationBrailleMap.put('?', "⠦");
+        punctuationBrailleMap.put('!', "⠖");
+        punctuationBrailleMap.put('(', "⠐⠣");
+        punctuationBrailleMap.put(')', "⠐⠜");
+        punctuationBrailleMap.put('/', "⠸⠌");
+        punctuationBrailleMap.put('\\', "⠸⠡"); // The sequence \\ inserts a single backslash "\"
+        punctuationBrailleMap.put('-', "⠤");
+
+        return punctuationBrailleMap;
+    }
+
     @NonNull
     private static HashMap<Integer, String> createNumberBrailleMap() {
+
         HashMap<Integer, String> numberBrailleMap = new HashMap<>();
+
         numberBrailleMap.put(0, "⠼⠚");
         numberBrailleMap.put(1, "⠼⠁");
         numberBrailleMap.put(2, "⠼⠃");
@@ -115,22 +180,41 @@ public class BrailleTranslator {
         return numberBrailleMap;
     }
 
-    // Creates a map and then stores it in punctuationBraille HashMap
     @NonNull
-    private static HashMap<Character, String> createPunctuationBrailleMap() {
-        HashMap<Character, String> punctuationBrailleMap = new HashMap<>();
-        punctuationBrailleMap.put(',', "⠂");
-        punctuationBrailleMap.put(';', "⠆");
-        punctuationBrailleMap.put(':', "⠒");
-        punctuationBrailleMap.put('.', "⠲");
-        punctuationBrailleMap.put('?', "⠦");
-        punctuationBrailleMap.put('!', "⠖");
-        punctuationBrailleMap.put('(', "⠐⠣");
-        punctuationBrailleMap.put(')', "⠐⠜");
-        punctuationBrailleMap.put('/', "⠸⠌");
-        punctuationBrailleMap.put('\\', "⠸⠡"); // The sequence \\ inserts a single backslash "\"
-        punctuationBrailleMap.put('-', "⠤");
+    private static HashMap<String, Character> createBrailleLetterMap() {
 
-        return punctuationBrailleMap;
+        HashMap<String, Character> brailleLetterMap = new HashMap<>();
+
+        brailleLetterMap.put("⠀", ' ');
+        brailleLetterMap.put("⠁", 'a');
+        brailleLetterMap.put("⠃", 'b');
+        brailleLetterMap.put("⠉", 'c');
+        brailleLetterMap.put("⠙", 'd');
+        brailleLetterMap.put("⠑", 'e');
+        brailleLetterMap.put("⠋", 'f');
+        brailleLetterMap.put("⠛", 'g');
+        brailleLetterMap.put("⠓", 'h');
+        brailleLetterMap.put("⠊", 'i');
+        brailleLetterMap.put("⠚", 'j');
+        brailleLetterMap.put("⠅", 'k');
+        brailleLetterMap.put("⠇", 'l');
+        brailleLetterMap.put("⠍", 'm');
+        brailleLetterMap.put("⠝", 'n');
+        brailleLetterMap.put("⠕", 'o');
+        brailleLetterMap.put("⠏", 'p');
+        brailleLetterMap.put("⠟", 'q');
+        brailleLetterMap.put("⠗", 'r');
+        brailleLetterMap.put("⠎", 's');
+        brailleLetterMap.put("⠞", 't');
+        brailleLetterMap.put("⠥", 'u');
+        brailleLetterMap.put("⠧", 'v');
+        brailleLetterMap.put("⠺", 'w');
+        brailleLetterMap.put("⠭", 'x');
+        brailleLetterMap.put("⠽", 'y');
+        brailleLetterMap.put("⠵", 'z');
+
+        // Bugs when translating braille that corresponds to numbers
+
+        return brailleLetterMap;
     }
 }

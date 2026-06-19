@@ -19,6 +19,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean isTextToBraille = true;
+
+    // Views used by multiple methods and listeners
+    private EditText inText;
+    private TextView outText;
+    private ImageButton copyButton;
+    private TextView leftModeLabel;
+    private TextView rightModeLabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,15 +39,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Connect each Java variable to its XML element
-        EditText inText = findViewById(R.id.inputText);
+        // Initialize views from the XML layout
         Button tButton = findViewById(R.id.translateButton);
-        TextView outText = findViewById(R.id.outputText);
-
         ImageButton clearButton = findViewById(R.id.clearInputButton);
-        ImageButton copyButton = findViewById(R.id.copyResultButton);
+        ImageButton switchModeButton = findViewById(R.id.switchModeButton);
 
-        // Add a Button Click Listener that translates the input to the braille result when clicked
+        inText = findViewById(R.id.inputText);
+        outText = findViewById(R.id.outputText);
+        copyButton = findViewById(R.id.copyResultButton);
+        leftModeLabel = findViewById(R.id.leftModeLabel);
+        rightModeLabel = findViewById(R.id.rightModeLabel);
+
+        /* Add a Button Click Listener that translates the input using the selected mode when clicked
+         *      Mode 1: Text to Braille
+         *      Mode 2: Braille to Text
+         */
         tButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,11 +62,44 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);*/
 
-                String textToTranslate = inText.getText().toString(); // textToTranslate contain the input we want to translate
-                String result = BrailleTranslator.translate(textToTranslate); // Send textToTranslate to translate() in BrailleTranslator.java to translate it
-                outText.setText(result);
+                // inputToTranslate contains the input we want to translate
+                String inputToTranslate = inText.getText().toString();
+                String result;
 
-                // Show the copy button only if the result is not empty and doesn't contain only '?'
+                /*
+                 * Check if the input is braille
+                 *
+                 *      ^              start of string
+                 *      [ ... ]        allowed characters
+                 *      \\s            whitespace
+                 *      \\u2800-\\u28FF Braille Unicode range
+                 *      +              one or more
+                 *      $              end of string
+                 *
+                 * ==> The whole input contains only whitespace or Braille symbols
+                */
+
+                if (inputToTranslate.matches("^[\\s\\u2800-\\u28FF]+$")) {
+                    isTextToBraille = false;
+                    updateModeLabels();
+
+                    // Send inputToTranslate to translateBrailleToText() in BrailleTranslator.java to translate it
+                    result = BrailleTranslator.translateBrailleToText(inputToTranslate);
+                    outText.setText(result);
+                }
+                else {
+                    isTextToBraille = true;
+                    updateModeLabels();
+
+                    // Send inputToTranslate to translateTextToBraille() in BrailleTranslator.java to translate it
+                    result = BrailleTranslator.translateTextToBraille(inputToTranslate);
+                    outText.setText(result);
+                }
+
+                /* Show the copy button only:
+                 *      1- if the result is not empty
+                 *      2- and doesn't contain only '?' characters
+                 */
                 if (!result.isEmpty() && !result.matches("\\?+")) {
                     copyButton.setVisibility(View.VISIBLE);
                 }
@@ -85,5 +133,28 @@ public class MainActivity extends AppCompatActivity {
                 myClipboard.setPrimaryClip(myClip);
             }
         });
+
+        // Add a Button Click Listener that switches the mode when clicked
+        switchModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Flip th mode and update the labels
+                isTextToBraille = !isTextToBraille;
+                updateModeLabels();
+            }
+        });
+    }
+
+    // Updates the labels of the left and right modes
+    private void updateModeLabels() {
+        if (isTextToBraille) {
+            leftModeLabel.setText(R.string.mode_text);
+            rightModeLabel.setText(R.string.mode_braille);
+        }
+        else {
+            leftModeLabel.setText(R.string.mode_braille);
+            rightModeLabel.setText(R.string.mode_text);
+        }
     }
 }
