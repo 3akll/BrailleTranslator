@@ -17,6 +17,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+/**
+ * Main screen for the Braille Translator app
+ * Handles user input, mode switching, and UI actions
+ */
 public class MainActivity extends AppCompatActivity {
 
     private boolean isTextToBraille = true;
@@ -146,7 +150,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Updates the labels of the left and right modes
+    /**
+     * Updates the text labels on the screen to reflect whether the app is in
+     * "Text to Braille" or "Braille to Text" mode
+     */
     private void updateModeLabels() {
         if (isTextToBraille) {
             leftModeLabel.setText(R.string.mode_text);

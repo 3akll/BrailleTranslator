@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 /*
- * Provides translation methods between regular text and Braille symbols.
- *
  * Separate HashMaps are used for letters, digits, and punctuation to keep the
  * mappings clear while learning. A single character map could also work because
  * the input is processed one character at a time.
  */
 
+/**
+ * Provides translation methods between regular text and braille symbols
+ */
 public class BrailleTranslator {
-    // Public method ==> will be called by MainActivity class
+    /**
+     * Translates input text to braille symbols
+     * @param input text to translate
+     * @return the translated braille result
+     */
     @NonNull
     public static String translateTextToBraille(String input) {
 
@@ -74,6 +79,12 @@ public class BrailleTranslator {
         return output.toString();
     }
 
+    /**
+     * Translates input braille symbols to text
+     * @param input braille symbols to translate
+     * @return the translated text result
+     */
+    @NonNull
     public static String translateBrailleToText(String input) {
 
         String currentBraille;
@@ -101,9 +112,9 @@ public class BrailleTranslator {
         return output.toString();
     }
 
-    /* Private method ==> belongs only to BrailleTranslator class
-     * No need to be shared with other classes
-     * Creates, fills, and returns the letterBrailleMap HashMap
+    /**
+     * Creates a HashMap to store letter/brailleSymbol
+     * @return a HashMap where each letter points to its Braille symbol
      */
     @NonNull
     private static HashMap<Character, String> createLetterBrailleMap() {
@@ -141,6 +152,10 @@ public class BrailleTranslator {
         return letterBrailleMap;
     }
 
+    /**
+     * Creates a HashMap to store punctuation/brailleSymbol
+     * @return a HashMap where each punctuation points to its braille symbol
+     */
     @NonNull
     private static HashMap<Character, String> createPunctuationBrailleMap() {
 
@@ -161,6 +176,10 @@ public class BrailleTranslator {
         return punctuationBrailleMap;
     }
 
+    /**
+     * Creates a HashMap to store number/brailleSymbol
+     * @return a HashMap where each number points to its braille symbol
+     */
     @NonNull
     private static HashMap<Integer, String> createNumberBrailleMap() {
 
@@ -180,6 +199,10 @@ public class BrailleTranslator {
         return numberBrailleMap;
     }
 
+    /**
+     * Creates a HashMap to store brailleSymbol/letter
+     * @return a HashMap where each braille symbol points to its letter
+     */
     @NonNull
     private static HashMap<String, Character> createBrailleLetterMap() {
 
