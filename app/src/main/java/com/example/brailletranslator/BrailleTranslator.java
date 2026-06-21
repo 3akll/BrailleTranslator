@@ -98,11 +98,11 @@ public class BrailleTranslator {
             // Convert the char at position i to String, because the key of brailleText HashMap is a String
             currentBraille = String.valueOf(input.charAt(i));
 
-            /* Check if currentBraille equals the number indicator ⠼
-             *      is yes ==> check the next character at i+1 and get the corresponding value
+            /* Check if the current symbols "⠼" or "⠐" or "⠸" starts a two-character Braille sequence
+             *      if yes ==> combine it with the next character and look up the full sequence
              *      stored in brailleText HashMap
              */
-            if (currentBraille.equals("⠼")) {
+            if (currentBraille.equals("⠼") || currentBraille.equals("⠐") || currentBraille.equals("⠸")) {
                 if (i < input.length() - 1) {
                     currentBraille += input.charAt(i + 1);
                     i++;
@@ -250,6 +250,18 @@ public class BrailleTranslator {
         brailleTextMap.put("⠭", 'x');
         brailleTextMap.put("⠽", 'y');
         brailleTextMap.put("⠵", 'z');
+
+        brailleTextMap.put("⠂", ',');
+        brailleTextMap.put("⠆", ';');
+        brailleTextMap.put("⠒", ':');
+        brailleTextMap.put("⠲", '.');
+        brailleTextMap.put("⠦", '?');
+        brailleTextMap.put("⠖", '!');
+        brailleTextMap.put("⠐⠣", '(');
+        brailleTextMap.put("⠐⠜", ')');
+        brailleTextMap.put("⠸⠌", '/');
+        brailleTextMap.put("⠸⠡", '\\');
+        brailleTextMap.put("⠤", '-');
 
         brailleTextMap.put("⠼⠚", '0');
         brailleTextMap.put("⠼⠁", '1');
