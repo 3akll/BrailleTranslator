@@ -1,3 +1,11 @@
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![XML](https://img.shields.io/badge/XML-0060AC?style=for-the-badge&logo=xml&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
+![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white)
+![Min SDK](https://img.shields.io/badge/Min%20SDK-23-4CAF50?style=for-the-badge)
+![Target SDK](https://img.shields.io/badge/Target%20SDK-36-2196F3?style=for-the-badge)
+
 # Braille Translator
 
 A lightweight, efficient Android application for translating English text into Braille and Braille back into English.
@@ -19,14 +27,6 @@ Android's system theming.
 - **Unicode-Based Encoding** — Uses the standard Unicode Braille Patterns block (`U+2800`–`U+28FF`) to ensure broad compatibility across platforms and devices.
 
 ## Tech Stack
-
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![XML](https://img.shields.io/badge/XML-0060AC?style=for-the-badge&logo=xml&logoColor=white)
-![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
-![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white)
-![Min SDK](https://img.shields.io/badge/Min%20SDK-23-4CAF50?style=for-the-badge)
-![Target SDK](https://img.shields.io/badge/Target%20SDK-36-2196F3?style=for-the-badge)
 
 | Component    | Details                        |
 |--------------|--------------------------------|

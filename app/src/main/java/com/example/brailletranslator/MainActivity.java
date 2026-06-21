@@ -1,11 +1,11 @@
 package com.example.brailletranslator;
 
-//import android.content.Context;
+import android.content.Context;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.view.View;
-//import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                /*Hide keyboard when click Translate button
+                //Hide the keyboard when the button is clicked
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);*/
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 // inputToTranslate contains the input we want to translate
                 String inputToTranslate = inText.getText().toString();

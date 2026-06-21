@@ -90,17 +90,32 @@ public class BrailleTranslator {
         String currentBraille;
         StringBuilder output = new StringBuilder();
 
-        // HashMap to store brailleSymbol/letter
-        HashMap<String, Character> brailleLetter = createBrailleLetterMap();
+        // HashMap to store brailleSymbol/text
+        HashMap<String, Character> brailleText = createBrailleTextMap();
 
         for (int i = 0; i < input.length(); i++) {
 
-            // Convert the char at position i to String, cause the key of brailleLetter HashMap is a String
+            // Convert the char at position i to String, because the key of brailleText HashMap is a String
             currentBraille = String.valueOf(input.charAt(i));
 
-            // Check if currentBraille is contained in the brailleLetter HashMap
-            if (brailleLetter.containsKey(currentBraille)) {
-                output.append(brailleLetter.get(currentBraille));
+            /* Check if currentBraille equals the number indicator ⠼
+             *      is yes ==> check the next character at i+1 and get the corresponding value
+             *      stored in brailleText HashMap
+             */
+            if (currentBraille.equals("⠼")) {
+                if (i < input.length() - 1) {
+                    currentBraille += input.charAt(i + 1);
+                    i++;
+                }
+                else {
+                    output.append("?");
+                    continue;
+                }
+            }
+
+            // Check if currentBraille is contained in the brailleText HashMap
+            if (brailleText.containsKey(currentBraille)) {
+                output.append(brailleText.get(currentBraille));
             }
             else {
                 // currentBraille isn't recognized / not mapped ==> print "?" character
@@ -200,44 +215,53 @@ public class BrailleTranslator {
     }
 
     /**
-     * Creates a HashMap to store brailleSymbol/letter
+     * Creates a HashMap to store brailleSymbol/text
      * @return a HashMap where each braille symbol points to its letter
      */
     @NonNull
-    private static HashMap<String, Character> createBrailleLetterMap() {
+    private static HashMap<String, Character> createBrailleTextMap() {
 
-        HashMap<String, Character> brailleLetterMap = new HashMap<>();
+        HashMap<String, Character> brailleTextMap = new HashMap<>();
 
-        brailleLetterMap.put("⠀", ' ');
-        brailleLetterMap.put("⠁", 'a');
-        brailleLetterMap.put("⠃", 'b');
-        brailleLetterMap.put("⠉", 'c');
-        brailleLetterMap.put("⠙", 'd');
-        brailleLetterMap.put("⠑", 'e');
-        brailleLetterMap.put("⠋", 'f');
-        brailleLetterMap.put("⠛", 'g');
-        brailleLetterMap.put("⠓", 'h');
-        brailleLetterMap.put("⠊", 'i');
-        brailleLetterMap.put("⠚", 'j');
-        brailleLetterMap.put("⠅", 'k');
-        brailleLetterMap.put("⠇", 'l');
-        brailleLetterMap.put("⠍", 'm');
-        brailleLetterMap.put("⠝", 'n');
-        brailleLetterMap.put("⠕", 'o');
-        brailleLetterMap.put("⠏", 'p');
-        brailleLetterMap.put("⠟", 'q');
-        brailleLetterMap.put("⠗", 'r');
-        brailleLetterMap.put("⠎", 's');
-        brailleLetterMap.put("⠞", 't');
-        brailleLetterMap.put("⠥", 'u');
-        brailleLetterMap.put("⠧", 'v');
-        brailleLetterMap.put("⠺", 'w');
-        brailleLetterMap.put("⠭", 'x');
-        brailleLetterMap.put("⠽", 'y');
-        brailleLetterMap.put("⠵", 'z');
+        brailleTextMap.put("⠀", ' ');
+        brailleTextMap.put("⠁", 'a');
+        brailleTextMap.put("⠃", 'b');
+        brailleTextMap.put("⠉", 'c');
+        brailleTextMap.put("⠙", 'd');
+        brailleTextMap.put("⠑", 'e');
+        brailleTextMap.put("⠋", 'f');
+        brailleTextMap.put("⠛", 'g');
+        brailleTextMap.put("⠓", 'h');
+        brailleTextMap.put("⠊", 'i');
+        brailleTextMap.put("⠚", 'j');
+        brailleTextMap.put("⠅", 'k');
+        brailleTextMap.put("⠇", 'l');
+        brailleTextMap.put("⠍", 'm');
+        brailleTextMap.put("⠝", 'n');
+        brailleTextMap.put("⠕", 'o');
+        brailleTextMap.put("⠏", 'p');
+        brailleTextMap.put("⠟", 'q');
+        brailleTextMap.put("⠗", 'r');
+        brailleTextMap.put("⠎", 's');
+        brailleTextMap.put("⠞", 't');
+        brailleTextMap.put("⠥", 'u');
+        brailleTextMap.put("⠧", 'v');
+        brailleTextMap.put("⠺", 'w');
+        brailleTextMap.put("⠭", 'x');
+        brailleTextMap.put("⠽", 'y');
+        brailleTextMap.put("⠵", 'z');
 
-        // Bugs when translating braille that corresponds to numbers
+        brailleTextMap.put("⠼⠚", '0');
+        brailleTextMap.put("⠼⠁", '1');
+        brailleTextMap.put("⠼⠃", '2');
+        brailleTextMap.put("⠼⠉", '3');
+        brailleTextMap.put("⠼⠙", '4');
+        brailleTextMap.put("⠼⠑", '5');
+        brailleTextMap.put("⠼⠋", '6');
+        brailleTextMap.put("⠼⠛", '7');
+        brailleTextMap.put("⠼⠓", '8');
+        brailleTextMap.put("⠼⠊", '9');
 
-        return brailleLetterMap;
+        return brailleTextMap;
     }
 }
