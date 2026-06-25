@@ -1,6 +1,12 @@
 <resources>
+
+    <!-- ============================================= -->
+    <!--         Strings for activity_main.xml         -->
+    <!-- ============================================= -->
+
     <string name="app_name">BrailleTranslator</string>
     <string name="title_first_screen">Braille Translator</string>
+    <string name="title_braille_first_screen">⠃⠗⠁⠊⠇⠇⠑ ⠞⠗⠁⠝⠎⠇⠁⠞⠕⠗</string>
     <string name="input_hint">Type a message</string>
     <string name="translate_button">Translate</string>
     <string name="result">Result</string>
@@ -9,4 +15,78 @@
     <string name="switch_button">Switch</string>
     <string name="mode_text">Text</string>
     <string name="mode_braille">Braille</string>
+    <string name="radio_button_letter">Letters</string>
+    <string name="radio_button_number">Numbers</string>
+    <string name="radio_button_punctuations">Punctuations</string>
+
+    <!-- =============================================== -->
+    <!--         Strings for keyboard_layout.xml         -->
+    <!-- =============================================== -->
+
+    <!-- Keyboard Letters Row 1 -->
+    <string name="key_q">⠟</string>
+    <string name="key_w">⠺</string>
+    <string name="key_e">⠑</string>
+    <string name="key_r">⠗</string>
+    <string name="key_t">⠞</string>
+    <string name="key_y">⠽</string>
+    <string name="key_u">⠥</string>
+
+    <!-- Keyboard Letters Row 2 -->
+    <string name="key_i">⠊</string>
+    <string name="key_o">⠕</string>
+    <string name="key_p">⠏</string>
+    <string name="key_a">⠁</string>
+    <string name="key_s">⠎</string>
+    <string name="key_d">⠙</string>
+    <string name="key_f">⠋</string>
+
+    <!-- Keyboard Letters Row 3 -->
+    <string name="key_g">⠛</string>
+    <string name="key_h">⠓</string>
+    <string name="key_j">⠚</string>
+    <string name="key_k">⠅</string>
+    <string name="key_l">⠇</string>
+    <string name="key_z">⠵</string>
+    <string name="key_x">⠭</string>
+
+    <!-- Keyboard Letters Row 4-->
+    <string name="key_c">⠉</string>
+    <string name="key_v">⠧</string>
+    <string name="key_b">⠃</string>
+    <string name="key_n">⠝</string>
+    <string name="key_m">⠍</string>
+
+    <!-- Keyboard Space key Row 5 -->
+    <string name="key_space">Space</string>
+
+    <!-- Keyboard Numbers Row 1 -->
+    <string name="key_1">⠼⠁</string>
+    <string name="key_2">⠼⠃</string>
+    <string name="key_3">⠼⠉</string>
+    <string name="key_4">⠼⠙</string>
+    <string name="key_5">⠼⠑</string>
+    <string name="key_6">⠼⠋</string>
+    <string name="key_7">⠼⠛</string>
+
+    <!-- Keyboard Numbers Row 2 -->
+    <string name="key_8">⠼⠓</string>
+    <string name="key_9">⠼⠊</string>
+    <string name="key_0">⠼⠚</string>
+
+    <!-- Keyboard Punctuations Row 1 -->
+    <string name="key_comma">⠂</string>
+    <string name="key_semicolon">⠆</string>
+    <string name="key_colon">⠒</string>
+    <string name="key_dot">⠲</string>
+    <string name="key_interrogation">⠦</string>
+    <string name="key_exclamation">⠖</string>
+    <string name="key_open_parenthesis">⠐⠣</string>
+
+    <!-- Keyboard Punctuations Row 2 -->
+    <string name="key_close_parenthesis">⠐⠜</string>
+    <string name="key_forward_slash">⠸⠌</string>
+    <string name="key_back_slash">⠸⠡</string>
+    <string name="key_hyphen">⠤</string>
+
 </resources>
